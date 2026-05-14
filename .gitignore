@@ -55,3 +55,14 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Node / Vite (frontend)
+node_modules/
+src/EventManagement.Web/dist/
+src/EventManagement.Web/.vite/
+*.local
+
+# IDE
+.vs/
+.idea/
+.vscode/
