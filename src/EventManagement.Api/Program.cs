@@ -28,8 +28,8 @@ builder.Services.AddCors(o => o.AddPolicy(CorsPolicy, p =>
 
 var app = builder.Build();
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHttpLogging();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

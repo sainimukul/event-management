@@ -5,7 +5,7 @@ REST API and React SPA for managing events and attendee registrations. Built for
 ## Tech stack
 
 - **Backend:** ASP.NET Core 8 (C#), in-memory storage, Swashbuckle (Swagger), `Microsoft.Extensions.Logging`, DataAnnotations, xUnit + FluentAssertions + NSubstitute.
-- **Frontend:** React 18 + Vite + TypeScript, react-router-dom v6, TanStack Query, axios, react-hot-toast, plain CSS Modules.
+- **Frontend:** React 19 + Vite, TypeScript, react-router-dom v7, TanStack Query, axios, react-hot-toast, plain CSS Modules.
 
 ## Solution layout
 

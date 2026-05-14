@@ -39,13 +39,16 @@ public sealed class EventService
     public async Task<IReadOnlyList<EventDto>> GetAllAsync()
     {
         var events = await _events.GetAllAsync();
-        var result = new List<EventDto>(events.Count);
-        foreach (var ev in events)
-        {
-            var count = await _registrations.CountByEventIdAsync(ev.Id);
-            result.Add(new EventDto(ev.Id, ev.Title, ev.Date, ev.MaxCapacity, count, ev.CreatedAt));
-        }
-        return result;
+        var counts = await _registrations.CountAllByEventAsync();
+        return events
+            .Select(ev => new EventDto(
+                ev.Id,
+                ev.Title,
+                ev.Date,
+                ev.MaxCapacity,
+                counts.TryGetValue(ev.Id, out var c) ? c : 0,
+                ev.CreatedAt))
+            .ToList();
     }
 
     public async Task<EventDetailDto?> GetByIdAsync(Guid id)

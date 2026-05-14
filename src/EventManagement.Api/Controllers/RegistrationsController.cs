@@ -22,7 +22,7 @@ public sealed class RegistrationsController : ControllerBase
     {
         var input = new RegisterUserInput(req.UserId, req.UserName);
         var created = await _registrations.RegisterAsync(eventId, input);
-        return CreatedAtAction(nameof(List), new { eventId }, created);
+        return Created($"/api/events/{eventId}/registrations/{created.Id}", created);
     }
 
     [HttpDelete("{registrationId:guid}")]

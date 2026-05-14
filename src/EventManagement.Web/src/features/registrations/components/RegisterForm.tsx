@@ -4,7 +4,7 @@ import { useRegister } from "../hooks/useRegister";
 import { extractApiError } from "../../../shared/utils/apiError";
 import styles from "./RegisterForm.module.css";
 
-export function RegisterForm({ eventId, disabled }: { eventId: string; disabled?: boolean }) {
+export function RegisterForm({ eventId }: { eventId: string }) {
   const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -29,15 +29,15 @@ export function RegisterForm({ eventId, disabled }: { eventId: string; disabled?
       <div className="form-row">
         <label className="label" htmlFor="userId">User ID</label>
         <input id="userId" className="input" required maxLength={100}
-          value={userId} onChange={(e) => setUserId(e.target.value)} disabled={disabled} />
+          value={userId} onChange={(e) => setUserId(e.target.value)} />
       </div>
       <div className="form-row">
         <label className="label" htmlFor="userName">User name</label>
         <input id="userName" className="input" required maxLength={200}
-          value={userName} onChange={(e) => setUserName(e.target.value)} disabled={disabled} />
+          value={userName} onChange={(e) => setUserName(e.target.value)} />
       </div>
       {error && <div className="field-error" role="alert">{error}</div>}
-      <button type="submit" className="button button--primary" disabled={disabled || mutation.isPending}>
+      <button type="submit" className="button button--primary" disabled={mutation.isPending}>
         {mutation.isPending ? "Registering..." : "Register"}
       </button>
     </form>

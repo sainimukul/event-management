@@ -8,6 +8,6 @@ public interface IRegistrationRepository
     Task<Registration?> GetByIdAsync(Guid id);
     Task AddAsync(Registration registration);
     Task DeleteAsync(Guid registrationId);
-    Task<bool> ExistsAsync(Guid eventId, string userId);
     Task<int> CountByEventIdAsync(Guid eventId);
+    Task<IReadOnlyDictionary<Guid, int>> CountAllByEventAsync();
 }

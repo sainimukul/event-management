@@ -30,9 +30,12 @@ public sealed class InMemoryRegistrationRepository : IRegistrationRepository
         return Task.CompletedTask;
     }
 
-    public Task<bool> ExistsAsync(Guid eventId, string userId) =>
-        Task.FromResult(_store.Values.Any(r => r.EventId == eventId && r.UserId == userId));
-
     public Task<int> CountByEventIdAsync(Guid eventId) =>
         Task.FromResult(_store.Values.Count(r => r.EventId == eventId));
+
+    public Task<IReadOnlyDictionary<Guid, int>> CountAllByEventAsync() =>
+        Task.FromResult<IReadOnlyDictionary<Guid, int>>(
+            _store.Values
+                .GroupBy(r => r.EventId)
+                .ToDictionary(g => g.Key, g => g.Count()));
 }
