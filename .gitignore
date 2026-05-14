@@ -66,3 +66,7 @@ src/EventManagement.Web/.vite/
 .vs/
 .idea/
 .vscode/
+
+# Claude Code / Serena machine-local state
+.claude/settings.local.json
+# (.serena/.gitignore already excludes project.local.yml and cache/)
