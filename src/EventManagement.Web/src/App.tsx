@@ -1,10 +1,7 @@
 import { Routes, Route, Link } from "react-router-dom";
 import { EventListPage } from "./features/events/pages/EventListPage";
 import { CreateEventPage } from "./features/events/pages/CreateEventPage";
-
-function Placeholder({ title }: { title: string }) {
-  return <div className="card">{title} — coming soon</div>;
-}
+import { EventDetailPage } from "./features/events/pages/EventDetailPage";
 
 export default function App() {
   return (
@@ -17,7 +14,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<EventListPage />} />
         <Route path="/events/new" element={<CreateEventPage />} />
-        <Route path="/events/:id" element={<Placeholder title="Event Detail" />} />
+        <Route path="/events/:id" element={<EventDetailPage />} />
       </Routes>
     </div>
   );
