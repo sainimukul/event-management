@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.HttpLogging;
 // Composition root for the Event Management API.
 // Order in the request pipeline is meaningful: HTTP logging first so every request appears in
 // the log, then the exception middleware so any exception thrown downstream is converted to a
-// JSON error before reaching the user. Swagger, CORS, and CORS-dependent features run only in
-// Development to keep the production surface small.
+// JSON error before reaching the user. Swagger runs only in Development to keep the production
+// surface small. CORS runs in every environment, driven by the AllowedOrigins config section —
+// the dev appsettings supplies the Vite origin; production deployers fill in their own.
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,9 +40,13 @@ builder.Services.AddHttpLogging(o =>
                     | HttpLoggingFields.Duration;
 });
 
-const string CorsPolicy = "AllowLocalDev";
+const string CorsPolicy = "Default";
+var allowedOrigins = builder.Configuration
+    .GetSection("AllowedOrigins")
+    .Get<string[]>() ?? [];
+
 builder.Services.AddCors(o => o.AddPolicy(CorsPolicy, p =>
-    p.WithOrigins("http://localhost:5173")
+    p.WithOrigins(allowedOrigins)
      .AllowAnyHeader()
      .AllowAnyMethod()));
 
@@ -49,12 +54,12 @@ var app = builder.Build();
 
 app.UseHttpLogging();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseCors(CorsPolicy);
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseCors(CorsPolicy);
 }
 
 app.MapControllers();
