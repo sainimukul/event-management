@@ -1,0 +1,9 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: event-management-api:latest
+    container_name: event-management-api
+    ports:
+      - "5050:5050"

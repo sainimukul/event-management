@@ -1,0 +1,89 @@
+:root {
+  --color-bg: #f6f7f9;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-muted: #6b7280;
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-danger: #dc2626;
+  --color-danger-hover: #b91c1c;
+  --color-border: #e5e7eb;
+  --radius: 8px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; }
+
+a { color: var(--color-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.app-shell {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  font: inherit;
+  text-decoration: none;
+}
+.button:hover { background: #f3f4f6; }
+.button[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+.button--primary {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+.button--primary:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); }
+
+.button--danger {
+  background: var(--color-danger);
+  color: #fff;
+  border-color: var(--color-danger);
+}
+.button--danger:hover { background: var(--color-danger-hover); border-color: var(--color-danger-hover); }
+
+.button--ghost { background: transparent; border-color: transparent; color: var(--color-primary); }
+.button--ghost:hover { background: #eef2ff; }
+
+.form-row { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+.label { font-weight: 600; font-size: 0.9rem; }
+.input, .textarea {
+  font: inherit;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+.textarea { min-height: 80px; resize: vertical; }
+.input:focus, .textarea:focus { outline: 2px solid var(--color-primary); outline-offset: -1px; }
+
+.field-error { color: var(--color-danger); font-size: 0.85rem; margin-top: 0.25rem; }
+.muted { color: var(--color-muted); }

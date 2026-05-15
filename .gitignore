@@ -55,3 +55,18 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Node / Vite (frontend)
+node_modules/
+src/EventManagement.Web/dist/
+src/EventManagement.Web/.vite/
+*.local
+
+# IDE
+.vs/
+.idea/
+.vscode/
+
+# Claude Code / Serena machine-local state
+.claude/settings.local.json
+# (.serena/.gitignore already excludes project.local.yml and cache/)
