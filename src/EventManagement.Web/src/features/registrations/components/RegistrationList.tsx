@@ -10,6 +10,11 @@ import { formatDate } from "../../../shared/utils/date";
 import { extractApiError } from "../../../shared/utils/apiError";
 import styles from "./RegistrationList.module.css";
 
+/**
+ * Renders the attendees registered for one event, with an Unregister action per row that
+ * pops a {@link ConfirmModal} before the destructive call. Handles its own loading, empty,
+ * and error states so the parent page can drop it in without conditionals.
+ */
 export function RegistrationList({ eventId }: { eventId: string }) {
   const { data, isLoading, isError, refetch } = useRegistrations(eventId);
   const unregister = useUnregister(eventId);

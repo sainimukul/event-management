@@ -11,6 +11,16 @@ import { ErrorBanner } from "../../../shared/components/ErrorBanner";
 import { formatDate } from "../../../shared/utils/date";
 import styles from "./EventDetailPage.module.css";
 
+/**
+ * Route at `/events/:id`. The page composes four things — the event summary card, the
+ * inline edit toggle (using {@link EventForm}), the {@link RegistrationList}, and the
+ * {@link RegisterForm} — and decides which to show based on the event's state. There is
+ * intentionally no dedicated `/events/:id/edit` route; the same screen flips into edit
+ * mode in place to keep navigation flat.
+ *
+ * Past and full events disable the registration form (and the backend would 422 the
+ * request anyway); the user-visible card explains which condition closed it.
+ */
 export function EventDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
