@@ -52,13 +52,15 @@ dotnet test
 
 | Method | Route | Purpose |
 |---|---|---|
-| GET | `/api/events` | List events |
-| GET | `/api/events/{id}` | Get event by id |
-| POST | `/api/events` | Create event |
-| PUT | `/api/events/{id}` | Update event |
-| GET | `/api/events/{eventId}/registrations` | List registrations for an event |
-| POST | `/api/events/{eventId}/registrations` | Register a user |
-| DELETE | `/api/events/{eventId}/registrations/{registrationId}` | Unregister a user |
+| GET | `/api/v1/events` | List events |
+| GET | `/api/v1/events/{id}` | Get event by id |
+| POST | `/api/v1/events` | Create event |
+| PUT | `/api/v1/events/{id}` | Update event |
+| GET | `/api/v1/events/{eventId}/registrations` | List registrations for an event |
+| POST | `/api/v1/events/{eventId}/registrations` | Register a user |
+| DELETE | `/api/v1/events/{eventId}/registrations/{registrationId}` | Unregister a user |
+
+API uses URI path versioning. Future versions will live alongside v1 under `/api/v2/...`, `/api/v3/...`, etc.
 
 Response codes: 200 (read/update), 201 (create/register), 204 (delete), 400 (DataAnnotations validation), 404 (not found), 422 (business rule violation), 500 (unexpected). 400 responses use ASP.NET Core's `ValidationProblemDetails`; other errors use a small `{ message, statusCode, details }` shape.
 

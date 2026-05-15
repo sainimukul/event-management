@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A take-home Event Management exercise: ASP.NET Core 8 REST API + React 19 SPA, in-memory storage, no auth, no persistence. The brief is `docs/requirements/event-management-requirements-v1.md`. The final design lives in `docs/superpowers/specs/2026-05-14-event-management-design.md` and the task-by-task plan in `docs/superpowers/plans/2026-05-14-event-management.md` — read those first when you need to understand *why* something is shaped a certain way (e.g. why there is no `DELETE /api/events/{id}`, why we use `Microsoft.Extensions.Logging` instead of Serilog, why CSS Modules instead of Tailwind).
+A take-home Event Management exercise: ASP.NET Core 8 REST API + React 19 SPA, in-memory storage, no auth, no persistence. The brief is `docs/requirements/event-management-requirements-v1.md`. The final design lives in `docs/superpowers/specs/2026-05-14-event-management-design.md` and the task-by-task plan in `docs/superpowers/plans/2026-05-14-event-management.md` — read those first when you need to understand *why* something is shaped a certain way (e.g. why there is no `DELETE /api/v1/events/{id}`, why we use `Microsoft.Extensions.Logging` instead of Serilog, why CSS Modules instead of Tailwind).
 
 ## Toolchain notes that bite
 
