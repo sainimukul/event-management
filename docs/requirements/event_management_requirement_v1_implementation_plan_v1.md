@@ -1,4 +1,4 @@
-# Event Management System — Submission-Ready Design & Implementation Plan
+# Event Management System — Design & Implementation Plan
 
 This document is a complete execution plan for implementing the Event Management System take-home exercise. It is written so that any engineer or AI coding agent can use it as the single source of truth for building the solution.
 
