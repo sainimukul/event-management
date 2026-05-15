@@ -44,12 +44,30 @@ public class RegistrationRulesTests
     }
 
     [Fact]
+    public void EnsureEventIsNotInPast_does_not_throw_when_event_date_equals_now()
+    {
+        var ev = MakeEvent(_now);
+        var act = () => _rules.EnsureEventIsNotInPast(ev, _now);
+
+        act.Should().NotThrow();
+    }
+
+    [Fact]
     public void EnsureCapacityAvailable_throws_when_current_count_equals_max_capacity()
     {
         var ev = MakeEvent(_now.AddDays(1), capacity: 3);
         var act = () => _rules.EnsureCapacityAvailable(ev, currentRegistrationCount: 3);
 
         act.Should().Throw<EventCapacityExceededException>();
+    }
+
+    [Fact]
+    public void EnsureCapacityAvailable_does_not_throw_when_one_slot_remains()
+    {
+        var ev = MakeEvent(_now.AddDays(1), capacity: 3);
+        var act = () => _rules.EnsureCapacityAvailable(ev, currentRegistrationCount: 2);
+
+        act.Should().NotThrow();
     }
 
     [Fact]
@@ -67,5 +85,30 @@ public class RegistrationRulesTests
         var act = () => _rules.EnsureUserNotAlreadyRegistered("user-1", new[] { existing });
 
         act.Should().Throw<DuplicateRegistrationException>();
+    }
+
+    [Fact]
+    public void EnsureUserNotAlreadyRegistered_does_not_throw_when_registrations_are_empty()
+    {
+        var act = () => _rules.EnsureUserNotAlreadyRegistered("user-1", Array.Empty<Registration>());
+
+        act.Should().NotThrow();
+    }
+
+    [Fact]
+    public void EnsureUserNotAlreadyRegistered_does_not_throw_when_only_other_users_are_registered()
+    {
+        var existing = new Registration
+        {
+            Id = Guid.NewGuid(),
+            EventId = Guid.NewGuid(),
+            UserId = "user-1",
+            UserName = "Alice",
+            RegisteredAt = _now,
+        };
+
+        var act = () => _rules.EnsureUserNotAlreadyRegistered("user-2", new[] { existing });
+
+        act.Should().NotThrow();
     }
 }
