@@ -4,14 +4,32 @@ import { toLocalInputValue, fromLocalInputValue } from "../../../shared/utils/da
 import { extractApiError } from "../../../shared/utils/apiError";
 import styles from "./EventForm.module.css";
 
+/** Props for {@link EventForm}. */
 interface Props {
+  /** Whether the form is creating a new event or editing an existing one. Controls the default submit label. */
   mode: "create" | "edit";
+  /** Pre-fill values when editing. Omitted (or undefined) for create mode. */
   initialData?: EventDetail;
+  /**
+   * Called with the trimmed, normalised payload when the user submits. The form awaits this
+   * promise, surfaces any thrown API error (via {@link extractApiError}), and only resets its
+   * submitting state once the promise settles.
+   */
   onSubmit: (payload: { title: string; description: string | null; date: string; maxCapacity: number }) => Promise<unknown>;
+  /** Optional cancel handler. When present, a Cancel button is rendered alongside Submit. */
   onCancel?: () => void;
+  /** Override for the submit button text. Defaults to "Create event" / "Save changes" based on {@link Props.mode}. */
   submitLabel?: string;
 }
 
+/**
+ * Shared event form used by both the create page and the inline-edit toggle on the detail
+ * page. Handles three pieces of glue the parent shouldn't have to worry about:
+ *
+ *   - Round-tripping the ISO 8601 `date` field to/from the `<input type="datetime-local">` shape.
+ *   - Trimming text, blanking empty descriptions to `null`, and coercing `maxCapacity` to a number.
+ *   - Parsing backend `ValidationProblemDetails` into per-field error messages.
+ */
 export function EventForm({ mode, initialData, onSubmit, onCancel, submitLabel }: Props) {
   const [values, setValues] = useState<EventFormValues>({
     title: initialData?.title ?? "",

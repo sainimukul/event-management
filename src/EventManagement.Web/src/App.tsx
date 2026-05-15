@@ -3,6 +3,11 @@ import { EventListPage } from "./features/events/pages/EventListPage";
 import { CreateEventPage } from "./features/events/pages/CreateEventPage";
 import { EventDetailPage } from "./features/events/pages/EventDetailPage";
 
+/**
+ * Top-level app shell and route table. Three routes only — list, create, detail — kept
+ * flat on purpose. The provider setup (router, TanStack Query, toaster) lives in `main.tsx`
+ * so this component stays focused on layout.
+ */
 export default function App() {
   return (
     <div className="app-shell">

@@ -3,6 +3,11 @@ import toast from "react-hot-toast";
 import { EventForm } from "../components/EventForm";
 import { useCreateEvent } from "../hooks/useCreateEvent";
 
+/**
+ * Route at `/events/new`. Renders {@link EventForm} in create mode and, on success,
+ * navigates to the new event's detail page so the operator can immediately start
+ * registering attendees.
+ */
 export function CreateEventPage() {
   const navigate = useNavigate();
   const mutation = useCreateEvent();

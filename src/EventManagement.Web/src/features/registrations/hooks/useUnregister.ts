@@ -1,6 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { registrationsApi } from "../../../api/registrationsApi";
 
+/**
+ * Mutation that removes a single registration. Invalidates the same three keys as
+ * `useRegister` so every view of this event's counts stays consistent.
+ */
 export function useUnregister(eventId: string) {
   const qc = useQueryClient();
   return useMutation({

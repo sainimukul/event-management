@@ -5,6 +5,11 @@ import { Spinner } from "../../../shared/components/Spinner";
 import { EmptyState } from "../../../shared/components/EmptyState";
 import { ErrorBanner } from "../../../shared/components/ErrorBanner";
 
+/**
+ * Landing page route (`/`). Shows every event as a card grid, with separate states for
+ * loading, error (with retry), empty (with a CTA), and populated. The "New event" button
+ * lives in the header so it's reachable from both the empty and populated states.
+ */
 export function EventListPage() {
   const { data, isLoading, isError, refetch } = useEvents();
 

@@ -4,6 +4,12 @@ import { useRegister } from "../hooks/useRegister";
 import { extractApiError } from "../../../shared/utils/apiError";
 import styles from "./RegisterForm.module.css";
 
+/**
+ * Inline form for registering a new attendee to an event. Rendered on the event detail page
+ * only when the event isn't past or full — the parent makes that decision and either shows
+ * this component or a "this event is closed" notice. On success toasts and resets the form
+ * so the same operator can register several attendees in a row.
+ */
 export function RegisterForm({ eventId }: { eventId: string }) {
   const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
