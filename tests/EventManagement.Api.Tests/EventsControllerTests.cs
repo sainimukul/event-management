@@ -24,7 +24,7 @@ public class EventsControllerTests : IClassFixture<ApiFactory>
     {
         var client = _factory.CreateClient();
 
-        var response = await client.PostAsJsonAsync("/api/events", ValidCreateBody());
+        var response = await client.PostAsJsonAsync("/api/v1/events", ValidCreateBody());
 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
         response.Headers.Location.Should().NotBeNull();
@@ -37,7 +37,7 @@ public class EventsControllerTests : IClassFixture<ApiFactory>
     {
         var client = _factory.CreateClient();
 
-        var response = await client.GetAsync($"/api/events/{Guid.NewGuid()}");
+        var response = await client.GetAsync($"/api/v1/events/{Guid.NewGuid()}");
 
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
@@ -54,7 +54,7 @@ public class EventsControllerTests : IClassFixture<ApiFactory>
             maxCapacity = 10,
         };
 
-        var response = await client.PostAsJsonAsync("/api/events", body);
+        var response = await client.PostAsJsonAsync("/api/v1/events", body);
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EventManagement.Api.Controllers;
 
 [ApiController]
-[Route("api/events")]
+[Route("api/v1/events")]
 public sealed class EventsController : ControllerBase
 {
     private readonly EventService _events;

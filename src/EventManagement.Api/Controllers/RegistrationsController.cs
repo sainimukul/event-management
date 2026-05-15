@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EventManagement.Api.Controllers;
 
 [ApiController]
-[Route("api/events/{eventId:guid}/registrations")]
+[Route("api/v1/events/{eventId:guid}/registrations")]
 public sealed class RegistrationsController : ControllerBase
 {
     private readonly RegistrationService _registrations;
@@ -22,7 +22,7 @@ public sealed class RegistrationsController : ControllerBase
     {
         var input = new RegisterUserInput(req.UserId, req.UserName);
         var created = await _registrations.RegisterAsync(eventId, input);
-        return Created($"/api/events/{eventId}/registrations/{created.Id}", created);
+        return Created($"/api/v1/events/{eventId}/registrations/{created.Id}", created);
     }
 
     [HttpDelete("{registrationId:guid}")]

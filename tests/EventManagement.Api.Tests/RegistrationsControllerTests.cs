@@ -21,7 +21,7 @@ public class RegistrationsControllerTests
 
     private async Task<Guid> CreateEvent(HttpClient client, DateTimeOffset date, int capacity = 10)
     {
-        var response = await client.PostAsJsonAsync("/api/events", CreateEventBody(date, capacity));
+        var response = await client.PostAsJsonAsync("/api/v1/events", CreateEventBody(date, capacity));
         response.EnsureSuccessStatusCode();
         var dto = await response.Content.ReadFromJsonAsync<EventDto>();
         return dto!.Id;
@@ -34,7 +34,7 @@ public class RegistrationsControllerTests
         var client = factory.CreateClient();
         var eventId = await CreateEvent(client, factory.Clock.UtcNow.AddDays(1));
 
-        var response = await client.PostAsJsonAsync($"/api/events/{eventId}/registrations",
+        var response = await client.PostAsJsonAsync($"/api/v1/events/{eventId}/registrations",
             RegisterBody("user-1", "Alice"));
 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -48,9 +48,9 @@ public class RegistrationsControllerTests
         await using var factory = new ApiFactory();
         var client = factory.CreateClient();
         var eventId = await CreateEvent(client, factory.Clock.UtcNow.AddDays(1));
-        await client.PostAsJsonAsync($"/api/events/{eventId}/registrations", RegisterBody("user-1", "Alice"));
+        await client.PostAsJsonAsync($"/api/v1/events/{eventId}/registrations", RegisterBody("user-1", "Alice"));
 
-        var response = await client.PostAsJsonAsync($"/api/events/{eventId}/registrations",
+        var response = await client.PostAsJsonAsync($"/api/v1/events/{eventId}/registrations",
             RegisterBody("user-1", "Alice"));
 
         response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
@@ -62,9 +62,9 @@ public class RegistrationsControllerTests
         await using var factory = new ApiFactory();
         var client = factory.CreateClient();
         var eventId = await CreateEvent(client, factory.Clock.UtcNow.AddDays(1), capacity: 1);
-        await client.PostAsJsonAsync($"/api/events/{eventId}/registrations", RegisterBody("user-1", "Alice"));
+        await client.PostAsJsonAsync($"/api/v1/events/{eventId}/registrations", RegisterBody("user-1", "Alice"));
 
-        var response = await client.PostAsJsonAsync($"/api/events/{eventId}/registrations",
+        var response = await client.PostAsJsonAsync($"/api/v1/events/{eventId}/registrations",
             RegisterBody("user-2", "Bob"));
 
         response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
@@ -80,7 +80,7 @@ public class RegistrationsControllerTests
         var eventId = await CreateEvent(client, eventDate);
         factory.Clock.UtcNow = eventDate.AddMinutes(1);
 
-        var response = await client.PostAsJsonAsync($"/api/events/{eventId}/registrations",
+        var response = await client.PostAsJsonAsync($"/api/v1/events/{eventId}/registrations",
             RegisterBody("user-1", "Alice"));
 
         response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
