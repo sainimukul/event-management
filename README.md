@@ -30,6 +30,27 @@ dotnet run --project src/EventManagement.Api
 
 The API listens on `http://localhost:5050`. Swagger UI: `http://localhost:5050/swagger`.
 
+## Running the backend with Docker (no .NET required)
+
+If you don't have the .NET 8 SDK installed, you can run the API in a container. You only need Docker Desktop (or any Docker engine with Compose v2).
+
+```bash
+docker compose up --build
+```
+
+The API listens on `http://localhost:5050`. Swagger UI: `http://localhost:5050/swagger`. Press `Ctrl+C` to stop, or run `docker compose down` to remove the container.
+
+Without compose:
+
+```bash
+docker build -t event-management-api .
+docker run --rm -p 5050:5050 event-management-api
+```
+
+The image is a multi-stage build (`mcr.microsoft.com/dotnet/sdk:8.0` → `mcr.microsoft.com/dotnet/aspnet:8.0`) and runs `ASPNETCORE_ENVIRONMENT=Development` so Swagger and the `:5173` CORS policy are active. The frontend at `http://localhost:5173` works against the container unchanged.
+
+State is in-memory, so stopping the container discards all events and registrations.
+
 ## Running the frontend
 
 ```bash
@@ -82,7 +103,7 @@ CORS: development policy whitelists `http://localhost:5173` only (the Vite dev s
 - Pagination on event and registration lists
 - Authentication / authorization
 - Frontend tests (Vitest + RTL)
-- Docker compose for backend + frontend
+- Docker compose for the frontend (backend is already containerised)
 - Serilog with structured sinks
 - FluentValidation once rules grow
 
