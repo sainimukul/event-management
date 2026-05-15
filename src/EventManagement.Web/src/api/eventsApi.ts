@@ -10,19 +10,19 @@ export interface CreateEventPayload {
 
 export const eventsApi = {
   list: async (): Promise<EventSummary[]> => {
-    const { data } = await apiClient.get<EventSummary[]>("/api/events");
+    const { data } = await apiClient.get<EventSummary[]>("/events");
     return data;
   },
   get: async (id: string): Promise<EventDetail> => {
-    const { data } = await apiClient.get<EventDetail>(`/api/events/${id}`);
+    const { data } = await apiClient.get<EventDetail>(`/events/${id}`);
     return data;
   },
   create: async (payload: CreateEventPayload): Promise<EventSummary> => {
-    const { data } = await apiClient.post<EventSummary>("/api/events", payload);
+    const { data } = await apiClient.post<EventSummary>("/events", payload);
     return data;
   },
   update: async (id: string, payload: CreateEventPayload): Promise<EventSummary> => {
-    const { data } = await apiClient.put<EventSummary>(`/api/events/${id}`, payload);
+    const { data } = await apiClient.put<EventSummary>(`/events/${id}`, payload);
     return data;
   },
 };
